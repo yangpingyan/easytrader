@@ -71,3 +71,4 @@ target/
 tmp/
 
 secrets/
+*.json
