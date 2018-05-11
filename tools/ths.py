@@ -26,12 +26,8 @@ if __name__ == '__main__' :
         do, *params = input_str.split(" ")
         if(do == 'exit') :
             break
-        if(params):
-            amount = float(params[0])
-        else :
-            amount = amount_g
-
-        print(do, amount)
+        #get default amount and price
+        amount = amount_g
         df = ts.get_realtime_quotes('002413')
         buy_price = float(df['ask'][0])
         sell_price = float(df['bid'][0])
@@ -40,6 +36,17 @@ if __name__ == '__main__' :
             price = buy_price
         else:
             price = sell_price
+
+        for arg in params:
+            print(arg)
+            arg_tmp = float(arg)
+            if arg_tmp < 20:
+                price = arg_tmp
+            if arg_tmp >= 100 and arg_tmp < 500000:
+                amount = arg_tmp
+
+        print(do, price, amount)
+
 
         result = getattr(user, do)(stockID_g, price=price, amount=amount)
 
