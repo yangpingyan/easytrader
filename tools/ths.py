@@ -11,11 +11,12 @@ import time
 
 stockID_g= '002413'
 amount_g = 5000
+logger = logging.getLogger()
+
 
 if __name__ == '__main__' :
-    print("---Mission start---")
-    logging.info("debug logging test")
-    print("Initial easytrader")
+    logger.debug("---Mission start---")
+    logger.info("Initial easytrader")
     user = easytrader.use('ths')
     user.connect(r'C:\ths\xiadan.exe')
 
@@ -24,7 +25,7 @@ if __name__ == '__main__' :
 #        print(input_str)
 
         do, *params = input_str.split(" ")
-        if(do == 'exit') :
+        if(do not in ['get','buy', 'sell']) :
             break
         #get default amount and price
         amount = amount_g
