@@ -18,7 +18,7 @@ if __name__ == '__main__' :
     logger.debug("---Mission start---")
     logger.info("Initial easytrader")
     user = easytrader.use('ths')
-    user.connect(r'C:\ths\xiadan.exe')
+    user.connect(r'C:\\同花顺软件\\同花顺\\xiadan.exe')
 
     while(True) :
         input_str = input("THS Command:")
