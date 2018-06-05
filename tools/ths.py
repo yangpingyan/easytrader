@@ -8,52 +8,53 @@ import logging
 import easytrader
 import tushare as ts
 import time
+import random
 
 stockID_g= '002413'
 amount_g = 5000
 logger = logging.getLogger()
 
 
-if __name__ == '__main__' :
-    logger.debug("---Mission start---")
-    logger.info("Initial easytrader")
-    user = easytrader.use('ths')
-    user.connect(r'C:\\同花顺软件\\同花顺\\xiadan.exe')
 
-    while(True) :
-        input_str = input("THS Command:")
+logger.debug("---Mission start---")
+logger.info("Initial easytrader")
+user = easytrader.use('ths')
+user.connect(r'C:\\同花顺软件\\同花顺\\xiadan.exe')
+
+while(True) :
+    input_str = input("THS Command:")
 #        print(input_str)
 
-        do, *params = input_str.split(" ")
-        if(do not in ['get','buy', 'sell']) :
-            break
-        #get default amount and price
-        amount = amount_g
-        df = ts.get_realtime_quotes('002413')
-        buy_price = float(df['ask'][0])
-        sell_price = float(df['bid'][0])
-        print(buy_price, sell_price)
-        if(do == 'buy'):
-            price = buy_price
-        else:
-            price = sell_price
+    do, *params = input_str.split(" ")
+    if(do not in ['get','buy', 'sell']) :
+        break
+    #get default amount and price
+    amount = amount_g
+    df = ts.get_realtime_quotes('002413')
+    buy_price = float(df['ask'][0])
+    sell_price = float(df['bid'][0])
+    print(buy_price, sell_price)
+    if(do == 'buy'):
+        price = buy_price
+    else:
+        price = sell_price
 
-        for arg in params:
-            print(arg)
-            arg_tmp = float(arg)
-            if arg_tmp < 20:
-                price = arg_tmp
-            if arg_tmp >= 100 and arg_tmp < 500000:
-                amount = arg_tmp
+    for arg in params:
+        print(arg)
+        arg_tmp = float(arg)
+        if arg_tmp < 20:
+            price = arg_tmp
+        if arg_tmp >= 100 and arg_tmp < 500000:
+            amount = arg_tmp
 
-        print(do, price, amount)
-
-
-        result = getattr(user, do)(stockID_g, price=price, amount=amount)
+    print(do, price, amount)
 
 
-        print(result)
+    result = getattr(user, do)(stockID_g, price=price, amount=amount)
 
+
+    print(result)
+   
 
 #    if get is not None:
 #            result = getattr(user, do)

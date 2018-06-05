@@ -4,42 +4,36 @@ Created on Mon May  7 01:40:41 2018
 
 @author: ypy
 """
-
+import logging
 import easytrader
 import tushare as ts
+import time
+import random
 
-print(easytrader.__version__)
-print(ts.__version__)
-
-print("Missioin Start")
-stockID = '002413'
-try:
-    print(user)
-except:
-    print("Initial easytrader")
-    user = easytrader.use('ths')
-    user.connect(r'C:\ths\xiadan.exe') # 类似 r'C:\htzqzyb2\xiadan.exe'
-
-df = ts.get_realtime_quotes(stockID)
-buy_price = float(df['ask'][0])
-sell_price = float(df['bid'][0])
-print(buy_price, sell_price)
-#print(user.balance)
-stock_amounts = 10000
-
-
-entrust_no = user.buy(stockID, price=buy_price, amount=stock_amounts)
-print(entrust_no)
+stockID_g= '002413'
+amount_g = 5000
+logger = logging.getLogger()
 
 
 
+logger.debug("---Mission start---")
+logger.info("Initial easytrader")
+user = easytrader.use('ths')
+user.connect(r'C:\\同花顺软件\\同花顺\\xiadan.exe')
 
-#user2 = easytrader.use('ths')
-#user2.connect(r'C:\ths2\xiadan.exe') # 类似 r'C:\htzqzyb2\xiadan.exe'
-#print(user2.balance)
+while(True) :
 
-#user.position
-#user.buy('162411', price=0.55, amount=100)
-#user.sell('162411', price=0.55, amount=100)
-#user.cancel_entrust('buy/sell 获取的 entrust_no')
-#user.today_trades
+
+    amount = random.randint(5, 10) * 100
+    df = ts.get_realtime_quotes('002413')
+    buy_price = float(df['ask'][0])
+    sell_price = float(df['bid'][0])
+    print(buy_price, sell_price)
+    do = 'buy'
+    price = buy_price
+    print(do, price, amount)
+
+    result = getattr(user, do)(stockID_g, price=price, amount=amount)
+
+    print(result)
+    time.sleep(1)

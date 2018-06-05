@@ -13,24 +13,19 @@ print(ts.__version__)
 
 print("Missioin Start")
 stockID = '002413'
-try:
-    print(user)
-except:
-    print("Initial easytrader")
-    user = easytrader.use('ths')
-    user.connect(r'C:\ths\xiadan.exe') # 类似 r'C:\htzqzyb2\xiadan.exe'
+user = easytrader.use('ths')
+user.connect(r'C:\\同花顺软件\\同花顺\\xiadan.exe')
 
-df = ts.get_realtime_quotes(stockID)
-buy_price = float(df['ask'][0])
-sell_price = float(df['bid'][0])
-print(buy_price, sell_price)
-#print(user.balance)
-stock_amounts = 5000
+#df = ts.get_realtime_quotes(stockID)
+#buy_price = float(df['ask'][0])
+#sell_price = float(df['bid'][0])
+#print(buy_price, sell_price)
+##print(user.balance)
+#stock_amounts = 100
 
 
-entrust_no = user.sell(stockID, price=sell_price, amount=stock_amounts)
-
-print(entrust_no)
+#entrust_no = user.sell(stockID, price=sell_price, amount=stock_amounts)
+print(user.balance)
 
 
 
